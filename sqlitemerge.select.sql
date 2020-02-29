@@ -1,7 +1,7 @@
 -- Set CSV output mode, with headers
 .mode csv
 .headers on
-.output result.csv
+.output merged_jellyfish_sqlite.csv
  
 -- Now JOIN them all together
 SELECT * FROM t1

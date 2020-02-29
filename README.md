@@ -38,6 +38,18 @@ Then concat all of these as seen in the simple example.
 pip install --upgrade --user pandas
 
 ./merge_jellyfish_pandas.py mature.csv hairpin.csv 
+
+head merged_jellyfish_pandas.csv
+mer,mature,hairpin
+AAAAAAAAAAAAA,0,71
+AAAAAAAAAAAAC,0,6
+AAAAAAAAAAAAG,0,11
+AAAAAAAAAAACA,0,3
+AAAAAAAAAAACC,0,3
+AAAAAAAAAAACG,0,1
+AAAAAAAAAAAGA,0,6
+AAAAAAAAAAAGC,0,2
+AAAAAAAAAAAGG,0,2
 ```
 
 With 77 files, each of which takes about 250MB, I quickly run low on memory, but it does complete hours later.
@@ -98,6 +110,18 @@ The following example has be tried to ensure works, but I haven't run on the lar
 pip install --upgrade --user dask toolz fsspec
 
 ./merge_jellyfish_dask.py mature.csv hairpin.csv 
+
+head merged_jellyfish_pandas.csv
+mer,mature,hairpin
+AAAAAAAAAAAAA,0,71
+AAAAAAAAAAAAC,0,6
+AAAAAAAAAAAAG,0,11
+AAAAAAAAAAACA,0,3
+AAAAAAAAAAACC,0,3
+AAAAAAAAAAACG,0,1
+AAAAAAAAAAAGA,0,6
+AAAAAAAAAAAGC,0,2
+AAAAAAAAAAAGG,0,2
 ```
 
 
