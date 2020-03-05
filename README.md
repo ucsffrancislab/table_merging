@@ -87,12 +87,25 @@ This means if the mer isn't in the first table, it won't be included.
 Perhaps this will work with MySQL, but for the moment I don't have access 
 to MySQL on the cluster.
 
+Any MySQL isn't really supported on the cluster.
 
+ERRRRRRRR
 
+Nevertheless
 
+```
+mysql mergetest -e 'drop database mergetest'
+mysql < mysqlmerge.create.sql
+mysql mergetest < mysqlmerge.select.sql | sed 's/\t/,/g' > merged_jellyfish_mysql.csv
+```
 
+This works. I will need a much better test to determine how efficient it is.
 
+mysqlmerge.create.bash took about 1m30s for each of 77 samples
 
+mysqlmerge.select.bash failed with "ERROR 1116 (HY000) at line 1: Too many tables; MariaDB can only use 61 tables in a join".
+
+So it might work for smaller samples, but not here.
 
 
 
@@ -167,6 +180,29 @@ with pd.HDFStore(hdf_path, mode='w', complevel=5, complib='blosc') as store:
 
 
 
+
+
+
+
+
+Try modin with pandas
+
+
+
+
+
+
+
+
+
+
+
+
+Test python/dask, python/modin, python/HDF and mysql merging with larger datasets
+
+Sadly, mysql does not easily load compressed csv.
+
+~/20200211-20191008_Stanford71/
 
 
 
