@@ -2,7 +2,7 @@
 
 import os    
 import sys
-import dask.dataframe as dd
+import pandas as pd
 import argparse
 
 # initiate the parser
@@ -38,12 +38,13 @@ for filename in args.files:
 		basename=os.path.basename(filename)
 		sample=basename.split(".")[0]	#	everything before the first "."
 		print("Reading "+filename+": Sample "+sample)
-		d = dd.read_csv(filename,
+		d = pd.read_csv(filename,
 			sep=" ",
 			header=None,
 			usecols=[0,1],
 			names=["mer",sample],
-			dtype={sample: int}).set_index('mer')
+			dtype={sample: int},
+			index_col=["mer"] )
 		d.head()
 		d.dtypes
 		d.info(verbose=True)
