@@ -6,7 +6,7 @@ The problem at hand is how to merge many, very large csv files.
 More specifically, how can I merge the mer counts output by jellyfish.
 
 
-```
+```BASH
 jellyfish count -C -m 13 -s 1G -o hairpin.jf hairpin.fa 
 jellyfish count -C -m 13 -s 1G -o mature.jf mature.fa 
 jellyfish dump -column -o mature.csv mature.jf 
@@ -15,7 +15,7 @@ jellyfish dump -column -o hairpin.csv hairpin.jf
 
 This yields a space-delimited file containing ...
 
-```
+```BASH
 head mature.csv 
 AAAAAAAAAAGCC 4
 AAAAAAAAAAGGA 1
@@ -34,7 +34,7 @@ I have successfully merged these with python and pandas.
 Read each file into a dataframe and append it to an array.
 Then concat all of these as seen in the simple example.
 
-```
+```BASH
 pip install --upgrade --user pandas
 
 ./merge_jellyfish_pandas.py mature.csv hairpin.csv 
@@ -65,7 +65,7 @@ https://www.quora.com/How-do-I-merge-8-CSV-files-49-million-rows-each-with-a-com
 
 Simple load each csv file into its own table, then select and join them on the mer column.
 
-```
+```BASH
 cat sqlitemerge.create.sql | sqlite3 sqlitemerge.db
 cat sqlitemerge.select.sql | sqlite3 sqlitemerge.db
 head results.csv
@@ -93,7 +93,7 @@ ERRRRRRRR
 
 Nevertheless
 
-```
+```BASH
 mysql mergetest -e 'drop database mergetest'
 mysql < mysqlmerge.create.sql
 mysql mergetest < mysqlmerge.select.sql | sed 's/\t/,/g' > merged_jellyfish_mysql.csv
@@ -119,7 +119,7 @@ So it might work for smaller samples, but not here.
 I can also do this with dask, which some have suggested is much better.
 The following example has be tried to ensure works, but I haven't run on the large sample yet.
 
-```
+```BASH
 pip install --upgrade --user dask toolz fsspec
 
 ./merge_jellyfish_dask.py mature.csv hairpin.csv 
@@ -153,6 +153,11 @@ In addition, I could also try python, pandas and HDF
 
 https://stackoverflow.com/questions/38799704/efficient-merge-for-many-huge-csv-files
 
+```BASH
+pip install --upgrade --user tables
+
+
+
 import os
 import glob
 import pandas as pd
@@ -170,7 +175,12 @@ with pd.HDFStore(hdf_path, mode='w', complevel=5, complib='blosc') as store:
     store.create_table_index('table_name', columns=['Factor1', 'Factor2'], optlevel=9, kind='full')
 
 
+./merge_jellyfish_pandas_HDF.py mature.csv hairpin.csv 
 
+```
+
+
+Seems that HDF are row based and don't really concat like 2 data frames.
 
 
 
