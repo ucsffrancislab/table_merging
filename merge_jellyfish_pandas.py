@@ -58,18 +58,20 @@ if len(data_frames) > 0:
 	df = pd.concat(data_frames, axis=1, sort=True)
 	df.info(verbose=True)
 
+	print(df.head())
+
 	data_frames = []
 
 	print("Replacing all NaN with 0")
 	df.fillna(0, inplace=True)
 	df.info(verbose=True)
-	df.head()
+	print(df.head())
 	df.dtypes
 
 	print("Converting all counts back to integers")
 	df = pd.DataFrame(df, dtype=int)
 	df.info(verbose=True)
-	df.head()
+	print(df.head())
 	df.dtypes
 
 	print("Writing CSV")

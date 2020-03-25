@@ -3,6 +3,7 @@
 import os    
 import sys
 import dask.dataframe as dd
+import pandas as pd
 import argparse
 
 # initiate the parser
@@ -52,27 +53,34 @@ for filename in args.files:
 	else:
 		print(filename + " is empty")
 
+
 if len(data_frames) > 0:
 	print("Concating all")
-	df = pd.concat(data_frames, axis=1, sort=True)
+	df = dd.concat(data_frames, axis=1)	#, sort=True)
+	#df.reset_index()
+	#df.set_index('mer')
 	df.info(verbose=True)
+	print(df.head())
 
 	data_frames = []
 
 	print("Replacing all NaN with 0")
-	df.fillna(0, inplace=True)
+	#df.fillna(0, inplace=True)
+	df = df.fillna(0)
 	df.info(verbose=True)
-	df.head()
+	print(df.head())
 	df.dtypes
 
 	print("Converting all counts back to integers")
-	df = pd.DataFrame(df, dtype=int)
+	df = df.astype(int)
+	#df = pd.DataFrame(df, dtype=int)
+	####df = df.compute()
 	df.info(verbose=True)
-	df.head()
+	print(df.head())
 	df.dtypes
 
 	print("Writing CSV")
-	df.to_csv(output,index_label="mer")
+	df.to_csv(output,index_label="mer",single_file=True)
 
 else:
 	print("No data.")
