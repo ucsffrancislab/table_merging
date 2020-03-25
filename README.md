@@ -122,6 +122,8 @@ The following example has be tried to ensure works, but I haven't run on the lar
 ```BASH
 pip install --upgrade --user dask toolz fsspec
 
+possible cloudpickle
+
 ./merge_jellyfish_dask.py mature.csv hairpin.csv 
 
 head merged_jellyfish_pandas.csv
