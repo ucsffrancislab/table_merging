@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser(prog=os.path.basename(__file__))
 
 parser.add_argument('files', nargs='*', help='files help')
 parser.add_argument('-V', '--version', help='show program version', action='store_true')
-parser.add_argument('-o', '--output', nargs=1, type=str, default='merged_jellyfish_dask.csv', help='output csv filename to %(prog)s (default: %(default)s)')
+parser.add_argument('-o', '--output', nargs=1, type=str, default='merged_jellyfish_pandas.csv', help='output csv filename to %(prog)s (default: %(default)s)')
 
 # read arguments from the command line
 args = parser.parse_args()
