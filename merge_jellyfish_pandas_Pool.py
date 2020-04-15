@@ -58,11 +58,17 @@ def read_csv(filename):
 
 
 
-# set up your pool
-with Pool(processes=16) as pool: # or whatever your hardware can support
+## set up your pool
+#with Pool(processes=16) as pool: # or whatever your hardware can support
+#
+#	# have your pool map the file names to dataframes
+#	data_frames = pool.map(read_csv, args.files)
 
-	# have your pool map the file names to dataframes
-	data_frames = pool.map(read_csv, args.files)
+#with Pool(16) as pool: # or whatever your hardware can support
+#	data_frames = pool.map(read_csv, args.files)
+
+pool = Pool(16)
+data_frames = pool.map(read_csv, args.files)
 
 
 
